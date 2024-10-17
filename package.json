@@ -1,0 +1,19 @@
+{
+  "name": "@8columns/download-picsum",
+  "description": "CLI to bulk download images from picsum.photos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "download-picsum": "./index.js"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
