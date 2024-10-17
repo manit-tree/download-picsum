@@ -4,6 +4,8 @@ import fs from 'fs';
 import { Readable } from 'stream';
 import { finished } from 'stream/promises';
 import { program } from 'commander';
+import chalk from 'chalk';
+import figlet from 'figlet';
 
 
 function get_default(x, y) {
@@ -36,23 +38,27 @@ async function download(url) {
     }
 }
 
-program.name('download-picsum');
-program.description('CLI to download images from picsum.photos');
-program.requiredOption('-s, --size <image size>','Example: 800x600');
-program.option('-i, --items <number>', 'Example: 25', 25);
-program.action(options => {
-    let re = /(\d+)x(\d+)/;
-    let matches = options.size.match(re);
+figlet('download\n picsum', (err, data) => {
+    console.log(chalk.red.bold(data) + '\n');
 
-    if (matches && matches.length == 3) {
-        for (let i = 1; i <= options.items; i++) {
-            download(`https://picsum.photos/${matches[1]}/${matches[2]}`);
+    program.name(chalk.green('download-picsum'));
+    program.description('CLI to download images from picsum.photos');
+    program.requiredOption('-s, --size <image size>','Example: 800x600');
+    program.option('-i, --items <number>', 'Example: 25', 25);
+    program.action(options => {
+        
+        let re = /(\d+)x(\d+)/;
+        let matches = options.size.match(re);
+    
+        if (matches && matches.length == 3) {
+            for (let i = 1; i <= options.items; i++) {
+                download(`https://picsum.photos/${matches[1]}/${matches[2]}`);
+            }
+        } else {
+            program.error('invalid size: ' + options.size);
         }
-    } else {
-        program.error('invalid size: ' + options.size);
-    }
-
+    })
+        
+    program.showHelpAfterError();
+    program.parse();
 })
-
-program.showHelpAfterError();
-program.parse();
