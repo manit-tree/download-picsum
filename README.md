@@ -15,3 +15,11 @@ CLI for download images from [picsum.photos](https://picsum.photos). Useful for 
 2. To download 10 items of 640x48px images to current folder.
 
 ![image](https://github.com/user-attachments/assets/4e692aca-433d-4d8f-b65c-00f2d2437298)
+
+## License
+
+MIT
+
+## Author
+
+Mr.Manit Treeprapankit
