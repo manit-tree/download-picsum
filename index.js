@@ -3,10 +3,23 @@
 import fs from 'fs';
 import { Readable } from 'stream';
 import { finished } from 'stream/promises';
-import yargs from 'yargs/yargs';
-import { hideBin } from 'yargs/helpers';
+import { program } from 'commander';
 
-const argv = yargs(hideBin(process.argv)).argv;
+program.name('download-picsum');
+program.description('CLI to download images from picsum.photos');
+program.option('-s, --size <image-size>','Example: 800x600');
+program.option('-i, --items <number>', 'Example: 25');
+program.parse();
+
+const options = program.opts();
+
+function get_default(x, y) {
+    if (x == undefined || x == null) {
+        return y;
+    }
+
+    return x;
+}
 
 async function download(url) {
     let res = await fetch(url);
@@ -30,22 +43,8 @@ async function download(url) {
     }
 }
 
-/*
-for (let i=1;i<=10;i++) {
-    download('https://picsum.photos/800/600');
-}
-*/
-
-function get_default(x, y) {
-    if (x == undefined || x == null) {
-        return y;
-    }
-
-    return x;
-}
-
-let size = get_default(argv.size, '800x600');
-let items = get_default(argv.items, 25);
+let size = get_default(options.size, '800x600');
+let items = get_default(options.items, 25);
 let arr = size.split('x');
 
 for (let i = 1; i <= items; i++) {
