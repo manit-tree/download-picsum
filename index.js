@@ -45,11 +45,9 @@ program.action(options => {
     let matches = options.size.match(re);
 
     if (matches && matches.length == 3) {
-        if (arr.length == 2) {
-            for (let i = 1; i <= options.items; i++) {
-                download(`https://picsum.photos/${matches[1]}/${matches[2]}`);
-            }
-        }    
+        for (let i = 1; i <= options.items; i++) {
+            download(`https://picsum.photos/${matches[1]}/${matches[2]}`);
+        }
     } else {
         program.error('invalid size: ' + options.size);
     }
