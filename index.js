@@ -5,13 +5,6 @@ import { Readable } from 'stream';
 import { finished } from 'stream/promises';
 import { program } from 'commander';
 
-program.name('download-picsum');
-program.description('CLI to download images from picsum.photos');
-program.option('-s, --size <image-size>','Example: 800x600');
-program.option('-i, --items <number>', 'Example: 25');
-program.parse();
-
-const options = program.opts();
 
 function get_default(x, y) {
     if (x == undefined || x == null) {
@@ -43,10 +36,25 @@ async function download(url) {
     }
 }
 
-let size = get_default(options.size, '800x600');
-let items = get_default(options.items, 25);
-let arr = size.split('x');
+program.name('download-picsum');
+program.description('CLI to download images from picsum.photos');
+program.requiredOption('-s, --size <image size>','Example: 800x600');
+program.option('-i, --items <number>', 'Example: 25', 25);
+program.action(options => {
+    let re = /(\d+)x(\d+)/;
+    let matches = options.size.match(re);
 
-for (let i = 1; i <= items; i++) {
-    download(`https://picsum.photos/${arr[0]}/${arr[1]}`);
-}
+    if (matches && matches.length == 3) {
+        if (arr.length == 2) {
+            for (let i = 1; i <= options.items; i++) {
+                download(`https://picsum.photos/${matches[1]}/${matches[2]}`);
+            }
+        }    
+    } else {
+        program.error('invalid size: ' + options.size);
+    }
+
+})
+
+program.showHelpAfterError();
+program.parse();
