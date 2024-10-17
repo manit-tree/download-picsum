@@ -2,6 +2,10 @@
 
 CLI for download images from [picsum.photos](https://picsum.photos). Useful for generate sample photos for your Web Development.
 
+## Screenshot
+
+![image](https://github.com/user-attachments/assets/6e99922f-5665-4f54-9a28-3dba27235345)
+
 ## Setup
 
 ![image](https://github.com/user-attachments/assets/ef5adccc-7bd9-4707-9e51-8b1dfc5fb423)
